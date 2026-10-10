@@ -5,7 +5,7 @@ import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTime
 
 const EVENTS = {
   m: { id: 'm', title: 'Madhuramveppu', date: '29th December 2026', time: '06:00 PM', venue: "Bride's Residence", desc: 'Join us for the traditional Madhuramveppu ceremony.', mapLinks: [{ label: 'View Location on Map', url: 'https://maps.app.goo.gl/29ekFMhbyP2zPGen6' }] },
-  e: { id: 'e', title: 'Betrothal', date: '30th December 2026', time: '04:00 PM', venue: "St. Joseph's Forane Church, Olavakkode", desc: 'Reception to follow at Ebrason Convention Centre, Mundur starting at 6:00 PM.', mapLinks: [{ label: 'Church Location', url: 'https://maps.app.goo.gl/d2w3V1AVH3dHo3TAA' }, { label: 'Reception Location', url: 'https://maps.app.goo.gl/ZyiMxWJzSzfBKfC68' }] },
+  e: { id: 'e', title: 'Betrothal', date: '30th December 2026', time: '04:00 PM', venue: "St. Joseph's Forane Church, Olavakkode", desc: 'Reception to follow at Ebrason Convention Centre starting at 6:00 PM.', mapLinks: [{ label: 'Church Location', url: 'https://maps.app.goo.gl/d2w3V1AVH3dHo3TAA' }, { label: 'Reception Location', url: 'https://maps.app.goo.gl/ZyiMxWJzSzfBKfC68' }] },
   w: { id: 'w', title: 'Wedding', date: '2nd January 2027', time: '11:00 AM', venue: 'Lourde Matha Forane Church, Vadakkencherry', desc: 'Lunch reception at Thevarcad Convention Centre starting at 1:00 PM.', mapLinks: [{ label: 'Church Location', url: 'https://maps.app.goo.gl/1GU2K4SwSfxgFhr17' }, { label: 'Reception Location', url: 'https://maps.app.goo.gl/JASTYNC4MSmvniFMA' }] }
 };
 
