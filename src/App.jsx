@@ -182,14 +182,22 @@ function InvitationViewer() {
           
           <div className="family-grid" style={{ display: 'grid', gap: '30px', marginTop: '40px' }}>
             <div className="family-card">
-              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '8px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Groom's Parents</h3>
-              <p style={{ fontFamily: 'var(--serif)', fontSize: '20px', marginBottom: '5px', color: 'var(--ink)' }}>Mr. K.J Chacko & Mrs. Rani Chacko</p>
+              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '12px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Groom's Parents</h3>
+              <p style={{ fontFamily: 'var(--serif)', fontSize: '20px', marginBottom: '5px', color: 'var(--ink)', lineHeight: '1.5' }}>
+                Mr. K.J Chacko<br/>
+                <span style={{ fontStyle: 'italic', fontSize: '16px', color: 'var(--soft)' }}>&amp;</span><br/>
+                Mrs. Rani Chacko
+              </p>
               <p style={{ fontSize: '14px', color: 'var(--soft)', lineHeight: '1.6' }}>Kappyaruthottathil House<br/>Vadakkencherry, Palakkad</p>
             </div>
 
             <div className="family-card">
-              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '8px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Bride's Parents</h3>
-              <p style={{ fontFamily: 'var(--serif)', fontSize: '20px', marginBottom: '5px', color: 'var(--ink)' }}>Mr. Sabu George & Mrs. Stella Sabu</p>
+              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '12px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Bride's Parents</h3>
+              <p style={{ fontFamily: 'var(--serif)', fontSize: '20px', marginBottom: '5px', color: 'var(--ink)', lineHeight: '1.5' }}>
+                Mr. Sabu George<br/>
+                <span style={{ fontStyle: 'italic', fontSize: '16px', color: 'var(--soft)' }}>&amp;</span><br/>
+                Mrs. Stella Sabu
+              </p>
               <p style={{ fontSize: '14px', color: 'var(--soft)', lineHeight: '1.6' }}>Pulikkottil House<br/>Olavakkode, Palakkad</p>
             </div>
           </div>
