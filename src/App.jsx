@@ -183,7 +183,7 @@ function InvitationViewer() {
           <div className="family-grid" style={{ display: 'grid', gap: '30px', marginTop: '40px' }}>
             <div className="family-card">
               <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '8px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Groom's Parents</h3>
-              <p style={{ fontFamily: 'var(--serif)', fontSize: '20px', marginBottom: '5px', color: 'var(--ink)' }}>Mr. Joseph Chacko & Mrs. Rani Chacko</p>
+              <p style={{ fontFamily: 'var(--serif)', fontSize: '20px', marginBottom: '5px', color: 'var(--ink)' }}>Mr. K.J Chacko & Mrs. Rani Chacko</p>
               <p style={{ fontSize: '14px', color: 'var(--soft)', lineHeight: '1.6' }}>Kappyaruthottathil House<br/>Vadakkencherry, Palakkad</p>
             </div>
 
