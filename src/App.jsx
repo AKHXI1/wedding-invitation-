@@ -79,7 +79,18 @@ function InvitationViewer() {
   }, []);
 
   useEffect(() => {
-    const target = new Date("2027-01-02T17:00:00+05:30").getTime();
+    const eventDates = {
+      m: new Date("2026-12-29T10:00:00+05:30").getTime(),
+      e: new Date("2026-12-30T16:00:00+05:30").getTime(),
+      w: new Date("2027-01-02T10:30:00+05:30").getTime()
+    };
+    
+    // Find the earliest active event
+    let target = eventDates['w']; // Default to wedding
+    if (activeEvents.includes('m')) target = eventDates['m'];
+    else if (activeEvents.includes('e')) target = eventDates['e'];
+    else if (activeEvents.includes('w')) target = eventDates['w'];
+
     const tick = () => {
       const now = Date.now();
       const left = Math.max(0, target - now) / 1000;
@@ -93,7 +104,7 @@ function InvitationViewer() {
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [activeEvents]);
 
   const pad = n => String(n).padStart(2, '0');
   const addToRefs = el => {
