@@ -17,11 +17,11 @@ function InvitationViewer() {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [searchParams] = useSearchParams();
-  const eventKeysParam = searchParams.get('events');
+  const eventKeysParam = searchParams.get('e') || searchParams.get('events');
   const activeEvents = eventKeysParam ? eventKeysParam.split(',').filter(k => EVENTS[k]) : ['m', 'e', 'w'];
-  const showFamilies = searchParams.get('showFamilies') === 'true';
-  const showRSVP = searchParams.has('showRSVP') ? searchParams.get('showRSVP') === 'true' : true;
-  const showWardrobe = searchParams.has('showWardrobe') ? searchParams.get('showWardrobe') === 'true' : true;
+  const showFamilies = searchParams.get('f') === '1' || searchParams.get('showFamilies') === 'true';
+  const showRSVP = searchParams.get('r') !== '0' && searchParams.get('showRSVP') !== 'false';
+  const showWardrobe = searchParams.get('w') !== '0' && searchParams.get('showWardrobe') !== 'false';
 
   const startAnimation = () => {
     if (isPlaying || isOpened) return;
@@ -311,7 +311,13 @@ function AdminPanel({ onLogout }) {
 
   const generateLink = () => {
     const keys = Object.keys(selectedEvents).filter(k => selectedEvents[k]);
-    const url = `${window.location.origin}/?events=${keys.join(',')}${showFamilies ? '&showFamilies=true' : ''}${!showRSVP ? '&showRSVP=false' : ''}${!showWardrobe ? '&showWardrobe=false' : ''}`;
+    const params = new URLSearchParams();
+    if (keys.length !== 3) params.set('e', keys.join(','));
+    if (showFamilies) params.set('f', '1');
+    if (!showRSVP) params.set('r', '0');
+    if (!showWardrobe) params.set('w', '0');
+    const qs = params.toString();
+    const url = `${window.location.origin}/${qs ? '?' + qs : ''}`;
     setGeneratedLink(url);
   };
 
