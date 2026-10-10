@@ -19,7 +19,7 @@ function InvitationViewer() {
   const [searchParams] = useSearchParams();
   const eventKeysParam = searchParams.get('e') || searchParams.get('events');
   const activeEvents = eventKeysParam ? eventKeysParam.split(',').filter(k => EVENTS[k]) : ['m', 'e', 'w'];
-  const showFamilies = searchParams.get('f') === '1' || searchParams.get('showFamilies') === 'true';
+  const showFamilies = searchParams.get('f') !== '0' && searchParams.get('showFamilies') !== 'false';
   const showRSVP = searchParams.get('r') !== '0' && searchParams.get('showRSVP') !== 'false';
   const showWardrobe = searchParams.get('w') !== '0' && searchParams.get('showWardrobe') !== 'false';
 
@@ -284,7 +284,7 @@ function InvitationViewer() {
 function AdminPanel({ onLogout }) {
   const [rsvps, setRsvps] = useState([]);
   const [selectedEvents, setSelectedEvents] = useState({ m: true, e: true, w: true });
-  const [showFamilies, setShowFamilies] = useState(false);
+  const [showFamilies, setShowFamilies] = useState(true);
   const [showRSVP, setShowRSVP] = useState(true);
   const [showWardrobe, setShowWardrobe] = useState(true);
   const [generatedLink, setGeneratedLink] = useState('');
@@ -324,7 +324,7 @@ function AdminPanel({ onLogout }) {
     const keys = Object.keys(selectedEvents).filter(k => selectedEvents[k]);
     const params = new URLSearchParams();
     if (keys.length !== 3) params.set('e', keys.join(','));
-    if (showFamilies) params.set('f', '1');
+    if (!showFamilies) params.set('f', '0');
     if (!showRSVP) params.set('r', '0');
     if (!showWardrobe) params.set('w', '0');
     const qs = params.toString();
