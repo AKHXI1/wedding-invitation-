@@ -27,7 +27,7 @@ function InvitationViewer() {
   const startAnimation = () => {
     if (isPlaying || isOpened) return;
     setIsPlaying(true);
-    
+
     // Auto complete opening animation after 2.5 seconds
     setTimeout(() => {
       handleVideoEnd();
@@ -86,7 +86,7 @@ function InvitationViewer() {
       e: new Date("2026-12-30T16:00:00+05:30").getTime(),
       w: new Date("2027-01-02T11:00:00+05:30").getTime()
     };
-    
+
     // Find the earliest active event
     let target = eventDates['w']; // Default to wedding
     if (activeEvents.includes('m')) target = eventDates['m'];
@@ -129,7 +129,7 @@ function InvitationViewer() {
       submittedAt: new Date().toLocaleString(),
       createdAt: serverTimestamp()
     };
-    
+
     try {
       await addDoc(collection(db, 'rsvps'), data);
       alert('Thank you! Your RSVP has been saved securely.');
@@ -144,8 +144,8 @@ function InvitationViewer() {
   return (
     <>
       {!isIntroDismissed && (
-        <div 
-          className={`luxury-intro ${isOpened ? 'open' : ''} ${isPlaying ? 'playing' : ''}`} 
+        <div
+          className={`luxury-intro ${isOpened ? 'open' : ''} ${isPlaying ? 'playing' : ''}`}
           onClick={startAnimation}
           role="button"
           tabIndex={0}
@@ -163,7 +163,7 @@ function InvitationViewer() {
             </div>
             <span className="initial a">A</span>
           </div>
-          
+
           <div className="luxury-intro-content">
             <div className="pointer-arrow-anim" aria-hidden="true">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -197,31 +197,31 @@ function InvitationViewer() {
         </section>
 
         {showFamilies && (
-        <section className="reveal families-section" ref={addToRefs}>
-          <h2 className="underline">Our Families</h2>
-          
-          <div className="family-grid">
-            <div className="family-card reveal" ref={addToRefs}>
-              <h3 className="family-role">Groom's Parents</h3>
-              <div className="family-names">
-                <span className="parent-name">Mr. K.J Chacko</span>
-                <span className="family-amp">&amp;</span>
-                <span className="parent-name">Mrs. Rani Chacko</span>
-              </div>
-              <p className="family-addr">Kappyaruthottathil House<br/>Vadakkencherry, Palakkad</p>
-            </div>
+          <section className="reveal families-section" ref={addToRefs}>
+            <h2 className="underline">Our Families</h2>
 
-            <div className="family-card reveal" ref={addToRefs}>
-              <h3 className="family-role">Bride's Parents</h3>
-              <div className="family-names">
-                <span className="parent-name">Mr. Sabu George</span>
-                <span className="family-amp">&amp;</span>
-                <span className="parent-name">Mrs. Stella Sabu</span>
+            <div className="family-grid">
+              <div className="family-card reveal" ref={addToRefs}>
+                <h3 className="family-role">Groom's Parents</h3>
+                <div className="family-names">
+                  <span className="parent-name">Mr. K.J Chacko</span>
+                  <span className="family-amp">&amp;</span>
+                  <span className="parent-name">Mrs. Rani Chacko</span>
+                </div>
+                <p className="family-addr">Kappyaruthottathil House<br />Vadakkencherry, Palakkad</p>
               </div>
-              <p className="family-addr">Pulikkottil House<br/>Olavakkode, Palakkad</p>
+
+              <div className="family-card reveal" ref={addToRefs}>
+                <h3 className="family-role">Bride's Parents</h3>
+                <div className="family-names">
+                  <span className="parent-name">Mr. Sabu George</span>
+                  <span className="family-amp">&amp;</span>
+                  <span className="parent-name">Mrs. Stella Sabu</span>
+                </div>
+                <p className="family-addr">Pulikkottil House<br />Olavakkode, Palakkad</p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
         )}
 
         <section className="reveal section-invite" ref={addToRefs}>
@@ -256,12 +256,12 @@ function InvitationViewer() {
         })}
 
         {showWardrobe && (
-        <section className="reveal" ref={addToRefs} style={{ textAlign: 'center', paddingTop: 0 }}>
-          <div className="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg></div>
-          <h2 className="underline" style={{ fontSize: '24px' }}>Wardrobe Plans</h2>
-          <p className="lead" style={{ fontSize: '15px', marginTop: '15px', fontWeight: 500 }}>Click below to view the dress code & color palette.</p>
-          <button className="btn" onClick={() => setIsWardrobeOpen(true)} style={{ marginTop: '20px', padding: '14px 34px', fontSize: '12px' }}>VIEW WARDROBE PLANS</button>
-        </section>
+          <section className="reveal" ref={addToRefs} style={{ textAlign: 'center', paddingTop: 0 }}>
+            <div className="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg></div>
+            <h2 className="underline" style={{ fontSize: '24px' }}>Wardrobe Plans</h2>
+            <p className="lead" style={{ fontSize: '15px', marginTop: '15px', fontWeight: 500 }}>Click below to view the dress code & color palette.</p>
+            <button className="btn" onClick={() => setIsWardrobeOpen(true)} style={{ marginTop: '20px', padding: '14px 34px', fontSize: '12px' }}>VIEW WARDROBE PLANS</button>
+          </section>
         )}
 
         <section className="countdown reveal" ref={addToRefs}>
@@ -275,28 +275,28 @@ function InvitationViewer() {
         </section>
 
         {showRSVP && (
-        <section className="rsvp reveal" id="rsvp" ref={addToRefs}>
-          <h2>RSVP</h2>
-          <form className="rsvp-form" onSubmit={handleRSVPSubmit}>
-            <input type="text" name="name" placeholder="Full Name(s)" required />
-            <select name="side" required className="rsvp-select" defaultValue="">
-              <option value="" disabled>...</option>
-              <option value="GROOM SIDE">Groom Side</option>
-              <option value="BRIDE SIDE">Bride Side</option>
-            </select>
-            <input type="number" name="count" placeholder="Number of Guests" required min="1" max="10" />
+          <section className="rsvp reveal" id="rsvp" ref={addToRefs}>
+            <h2>RSVP</h2>
+            <form className="rsvp-form" onSubmit={handleRSVPSubmit}>
+              <input type="text" name="name" placeholder="Full Name(s)" required />
+              <select name="side" required className="rsvp-select" defaultValue="">
+                <option value="" disabled>...</option>
+                <option value="GROOM SIDE">Groom Side</option>
+                <option value="BRIDE SIDE">Bride Side</option>
+              </select>
+              <input type="number" name="count" placeholder="Number of Guests" required min="1" max="10" />
 
-            <div className="radio-group">
-              <label><input type="radio" name="attending" value="yes" defaultChecked /> Joyfully Accepts</label>
-              <label><input type="radio" name="attending" value="no" /> Regretfully Declines</label>
-            </div>
+              <div className="radio-group">
+                <label><input type="radio" name="attending" value="yes" defaultChecked /> Joyfully Accepts</label>
+                <label><input type="radio" name="attending" value="no" /> Regretfully Declines</label>
+              </div>
 
-            <textarea name="remarks" placeholder="Any dietary requirements or special notes?" rows="3"></textarea>
-            <button type="submit" className="btn" disabled={isSubmitting}>
-              {isSubmitting ? 'SUBMITTING...' : 'SUBMIT'}
-            </button>
-          </form>
-        </section>
+              <textarea name="remarks" placeholder="Any dietary requirements or special notes?" rows="3"></textarea>
+              <button type="submit" className="btn" disabled={isSubmitting}>
+                {isSubmitting ? 'SUBMITTING...' : 'SUBMIT'}
+              </button>
+            </form>
+          </section>
         )}
 
         <footer>
@@ -331,7 +331,7 @@ function AdminPanel({ onLogout }) {
   useEffect(() => {
     // We don't want body locked on the admin page
     document.body.classList.remove('locked');
-    
+
     const fetchRsvps = async () => {
       try {
         const q = query(collection(db, 'rsvps'), orderBy('createdAt', 'desc'));
@@ -345,10 +345,10 @@ function AdminPanel({ onLogout }) {
           const fallbackSnapshot = await getDocs(collection(db, 'rsvps'));
           const fallbackData = fallbackSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           setRsvps(fallbackData.reverse());
-        } catch(e) {}
+        } catch (e) { }
       }
     };
-    
+
     fetchRsvps();
   }, []);
 
@@ -516,12 +516,12 @@ function AdminDashboard() {
         <div className="admin-card" style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
           <h2 style={{ marginBottom: '20px' }}>Admin Login</h2>
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <input 
-              type="password" 
-              placeholder="Enter Password" 
+            <input
+              type="password"
+              placeholder="Enter Password"
               value={passwordInput}
               onChange={e => setPasswordInput(e.target.value)}
-              required 
+              required
               style={{ padding: '12px', border: '1px solid #ccc', borderRadius: '6px', fontSize: '15px', background: 'transparent', color: 'var(--ink)' }}
             />
             {loginError && <p style={{ color: '#ff4d4f', fontSize: '13px', margin: '0' }}>{loginError}</p>}
