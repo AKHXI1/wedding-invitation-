@@ -6,7 +6,7 @@ import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTime
 const EVENTS = {
   m: { id: 'm', title: 'Madhuramveppu', date: '29th December 2026', time: '06:00 PM', venue: "Bride's Residence", desc: 'Join us for the traditional Madhuramveppu ceremony.', mapLinks: [{ label: 'View Location on Map', url: 'https://maps.app.goo.gl/29ekFMhbyP2zPGen6' }] },
   e: { id: 'e', title: 'Betrothal', date: '30th December 2026', time: '04:00 PM', venue: "St. Joseph's Forane Church, Olavakkode", desc: 'Reception to follow at Ebrason Convention Centre starting at 6:00 PM.', mapLinks: [{ label: 'Church Location', url: 'https://maps.app.goo.gl/d2w3V1AVH3dHo3TAA' }, { label: 'Reception Location', url: 'https://maps.app.goo.gl/ZyiMxWJzSzfBKfC68' }] },
-  w: { id: 'w', title: 'Wedding', date: '2nd January 2027', time: '11:00 AM', venue: 'Lourde Matha Forane Church, Vadakkencherry', desc: 'Lunch reception at Thevarcad Convention Centre starting at 1:00 PM.', mapLinks: [{ label: 'Church Location', url: 'https://maps.app.goo.gl/1GU2K4SwSfxgFhr17' }, { label: 'Reception Location', url: 'https://maps.app.goo.gl/JASTYNC4MSmvniFMA' }] }
+  w: { id: 'w', title: 'Wedding', date: '2nd January 2027', time: '11:00 AM', venue: 'Lourde Matha Forane Church, Vadakkencherry', desc: 'Reception to follow at Thevarcad Convention Centre starting at 1:00 PM.', mapLinks: [{ label: 'Church Location', url: 'https://maps.app.goo.gl/1GU2K4SwSfxgFhr17' }, { label: 'Reception Location', url: 'https://maps.app.goo.gl/JASTYNC4MSmvniFMA' }] }
 };
 
 function InvitationViewer() {
@@ -16,6 +16,7 @@ function InvitationViewer() {
   const revealRefs = useRef([]);
 
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isIntroDismissed, setIsIntroDismissed] = useState(false);
   const [searchParams] = useSearchParams();
   const eventKeysParam = searchParams.get('e') || searchParams.get('events');
   const activeEvents = eventKeysParam ? eventKeysParam.split(',').filter(k => EVENTS[k]) : ['m', 'e', 'w'];
@@ -40,6 +41,7 @@ function InvitationViewer() {
       revealRefs.current.forEach(el => {
         if (el) el.classList.add('in');
       });
+      setIsIntroDismissed(true);
     }, 500);
   };
 
@@ -141,21 +143,39 @@ function InvitationViewer() {
 
   return (
     <>
-      <div className={`luxury-intro ${isOpened ? 'open' : ''} ${isPlaying ? 'playing' : ''}`} onClick={startAnimation}>
-        <div className="curtain left">
-          <span className="initial j">J</span>
-        </div>
-        <div className="curtain right">
-          <div className="curtain-seal">
-            <span>&</span>
+      {!isIntroDismissed && (
+        <div 
+          className={`luxury-intro ${isOpened ? 'open' : ''} ${isPlaying ? 'playing' : ''}`} 
+          onClick={startAnimation}
+          role="button"
+          tabIndex={0}
+          aria-label="Open Wedding Invitation"
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') startAnimation(); }}
+        >
+          <div className="curtain left">
+            <span className="initial j">J</span>
           </div>
-          <span className="initial a">A</span>
+          <div className="curtain right">
+            <div className="curtain-seal" title="Tap or click to open">
+              <div className="seal-pulse-ring"></div>
+              <div className="seal-pulse-ring delay"></div>
+              <span>&</span>
+            </div>
+            <span className="initial a">A</span>
+          </div>
+          
+          <div className="luxury-intro-content">
+            <div className="pointer-arrow-anim" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="6 11 12 5 18 11"></polyline>
+              </svg>
+            </div>
+            <div className="tap-hint">Tap anywhere to enter</div>
+            <div className="luxury-text">A CELEBRATION OF LOVE</div>
+          </div>
         </div>
-        
-        <div className="luxury-intro-content">
-          <div className="luxury-text">A CELEBRATION OF LOVE</div>
-        </div>
-      </div>
+      )}
 
       <main>
         <header className="hero">
@@ -167,11 +187,11 @@ function InvitationViewer() {
           <div className="art" role="img" aria-label="Illustration of the couple at the villa"></div>
         </header>
 
-        <section className="reveal quote-section" style={{ padding: '40px 28px', textAlign: 'center' }} ref={addToRefs}>
-          <p className="script" style={{ fontSize: '28px', lineHeight: '1.4', color: 'var(--ink)' }}>
+        <section className="reveal quote-section" style={{ padding: '44px 28px', textAlign: 'center' }} ref={addToRefs}>
+          <p className="script" style={{ fontSize: '32px', lineHeight: '1.4', color: 'var(--ink)' }}>
             "I have found the one whom my soul loves."
           </p>
-          <p style={{ fontSize: '11px', letterSpacing: '0.15em', color: 'var(--soft)', marginTop: '14px', textTransform: 'uppercase' }}>
+          <p style={{ fontSize: '13px', letterSpacing: '0.18em', color: 'var(--soft)', marginTop: '14px', textTransform: 'uppercase', fontWeight: 600 }}>
             Song of Solomon 3:4
           </p>
         </section>
@@ -182,23 +202,23 @@ function InvitationViewer() {
           
           <div className="family-grid" style={{ display: 'grid', gap: '30px', marginTop: '40px' }}>
             <div className="family-card">
-              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '12px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Groom's Parents</h3>
-              <p style={{ fontFamily: 'var(--serif)', fontSize: '20px', marginBottom: '5px', color: 'var(--ink)', lineHeight: '1.5' }}>
+              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '12px', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600 }}>Groom's Parents</h3>
+              <p style={{ fontFamily: 'var(--serif)', fontSize: '22px', marginBottom: '6px', color: 'var(--ink)', lineHeight: '1.4', fontWeight: 600 }}>
                 Mr. K.J Chacko<br/>
-                <span style={{ fontStyle: 'italic', fontSize: '16px', color: 'var(--soft)' }}>&amp;</span><br/>
+                <span style={{ fontStyle: 'italic', fontSize: '18px', color: 'var(--soft)', fontWeight: 400 }}>&amp;</span><br/>
                 Mrs. Rani Chacko
               </p>
-              <p style={{ fontSize: '14px', color: 'var(--soft)', lineHeight: '1.6' }}>Kappyaruthottathil House<br/>Vadakkencherry, Palakkad</p>
+              <p style={{ fontSize: '15px', color: 'var(--soft)', lineHeight: '1.6', fontWeight: 500 }}>Kappyaruthottathil House<br/>Vadakkencherry, Palakkad</p>
             </div>
 
             <div className="family-card">
-              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '12px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Bride's Parents</h3>
-              <p style={{ fontFamily: 'var(--serif)', fontSize: '20px', marginBottom: '5px', color: 'var(--ink)', lineHeight: '1.5' }}>
+              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '12px', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600 }}>Bride's Parents</h3>
+              <p style={{ fontFamily: 'var(--serif)', fontSize: '22px', marginBottom: '6px', color: 'var(--ink)', lineHeight: '1.4', fontWeight: 600 }}>
                 Mr. Sabu George<br/>
-                <span style={{ fontStyle: 'italic', fontSize: '16px', color: 'var(--soft)' }}>&amp;</span><br/>
+                <span style={{ fontStyle: 'italic', fontSize: '18px', color: 'var(--soft)', fontWeight: 400 }}>&amp;</span><br/>
                 Mrs. Stella Sabu
               </p>
-              <p style={{ fontSize: '14px', color: 'var(--soft)', lineHeight: '1.6' }}>Pulikkottil House<br/>Olavakkode, Palakkad</p>
+              <p style={{ fontSize: '15px', color: 'var(--soft)', lineHeight: '1.6', fontWeight: 500 }}>Pulikkottil House<br/>Olavakkode, Palakkad</p>
             </div>
           </div>
         </section>
@@ -206,7 +226,7 @@ function InvitationViewer() {
 
         <section className="reveal" style={{ paddingTop: '0' }} ref={addToRefs}>
           <div className="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg></div>
-          <p className="lead" style={{ fontSize: '18px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>We are inviting you to</p>
+          <p className="lead" style={{ fontSize: '18px', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>We are inviting you to</p>
         </section>
 
         {activeEvents.map(key => {
@@ -214,12 +234,17 @@ function InvitationViewer() {
           return (
             <div key={key} className="card reveal" ref={addToRefs}>
               <h3>{ev.title}</h3>
-              <p>{ev.date}<br />{ev.time} at {ev.venue}</p>
-              <p style={{ marginTop: '12px', fontSize: '14px', lineHeight: '1.6', color: 'var(--ink)' }}>{ev.desc}</p>
+              <p style={{ fontSize: '16px', lineHeight: '1.8', color: 'var(--ink)' }}>
+                <strong style={{ fontSize: '18px', color: 'var(--ink)', display: 'block', marginBottom: '4px' }}>{ev.date}</strong>
+                <span style={{ fontSize: '15px', color: 'var(--soft)', fontWeight: 600 }}>{ev.time} at {ev.venue}</span>
+              </p>
+              <p style={{ marginTop: '14px', fontSize: '15px', lineHeight: '1.6', color: 'var(--ink)' }}>{ev.desc}</p>
               {ev.mapLinks && (
-                <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '15px' }}>
+                <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '18px' }}>
                   {ev.mapLinks.map((link, idx) => (
-                    <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', fontSize: '11px', letterSpacing: '0.15em', color: 'var(--btn)', textTransform: 'uppercase', textDecoration: 'none', borderBottom: '1px solid var(--btn)', paddingBottom: '3px' }}>{link.label}</a>
+                    <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 600, letterSpacing: '0.12em', color: 'var(--btn)', textTransform: 'uppercase', textDecoration: 'none', borderBottom: '2px solid var(--btn)', paddingBottom: '3px' }}>
+                      <span aria-hidden="true">📍</span> {link.label}
+                    </a>
                   ))}
                 </div>
               )}
@@ -230,9 +255,9 @@ function InvitationViewer() {
         {showWardrobe && (
         <section className="reveal" ref={addToRefs} style={{ textAlign: 'center', paddingTop: 0 }}>
           <div className="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg></div>
-          <h2 className="underline" style={{ fontSize: '20px' }}>Wardrobe Plans</h2>
-          <p className="lead" style={{ fontSize: '13px', marginTop: '15px' }}>Click below to view the dress code & color palette.</p>
-          <button className="btn" onClick={() => setIsWardrobeOpen(true)} style={{ marginTop: '20px', padding: '12px 30px', fontSize: '11px' }}>VIEW WARDROBE PLANS</button>
+          <h2 className="underline" style={{ fontSize: '24px' }}>Wardrobe Plans</h2>
+          <p className="lead" style={{ fontSize: '15px', marginTop: '15px', fontWeight: 500 }}>Click below to view the dress code & color palette.</p>
+          <button className="btn" onClick={() => setIsWardrobeOpen(true)} style={{ marginTop: '20px', padding: '14px 34px', fontSize: '12px' }}>VIEW WARDROBE PLANS</button>
         </section>
         )}
 
