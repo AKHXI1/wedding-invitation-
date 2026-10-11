@@ -38,7 +38,7 @@ function InvitationViewer() {
     setIsOpened(true);
     document.body.classList.remove('locked');
     setTimeout(() => {
-      revealRefs.current.forEach(el => {
+      document.querySelectorAll('.hero .reveal').forEach(el => {
         if (el) el.classList.add('in');
       });
       setIsIntroDismissed(true);
@@ -53,9 +53,9 @@ function InvitationViewer() {
           entry.target.classList.add('in');
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    const nodes = document.querySelectorAll('.hero .reveal, main > .reveal, main .card');
+    const nodes = document.querySelectorAll('.hero .reveal, main > .reveal, main .card, .family-card');
     nodes.forEach(el => observer.observe(el));
 
     const stagger = (el, i) => { el.classList.add('fx'); el.style.setProperty('--i', i); };
@@ -187,62 +187,65 @@ function InvitationViewer() {
           <div className="art" role="img" aria-label="Illustration of the couple at the villa"></div>
         </header>
 
-        <section className="reveal quote-section" style={{ padding: '44px 28px', textAlign: 'center' }} ref={addToRefs}>
-          <p className="script" style={{ fontSize: '32px', lineHeight: '1.4', color: 'var(--ink)' }}>
+        <section className="reveal quote-section" ref={addToRefs}>
+          <p className="quote-script">
             "I have found the one whom my soul loves."
           </p>
-          <p style={{ fontSize: '13px', letterSpacing: '0.18em', color: 'var(--soft)', marginTop: '14px', textTransform: 'uppercase', fontWeight: 600 }}>
+          <p className="quote-ref">
             Song of Solomon 3:4
           </p>
         </section>
 
         {showFamilies && (
-        <section className="reveal families-section card" ref={addToRefs} style={{ borderTop: 'none', background: 'transparent' }}>
+        <section className="reveal families-section" ref={addToRefs}>
           <h2 className="underline">Our Families</h2>
           
-          <div className="family-grid" style={{ display: 'grid', gap: '30px', marginTop: '40px' }}>
-            <div className="family-card">
-              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '12px', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600 }}>Groom's Parents</h3>
-              <p style={{ fontFamily: 'var(--serif)', fontSize: '22px', marginBottom: '6px', color: 'var(--ink)', lineHeight: '1.4', fontWeight: 600 }}>
-                Mr. K.J Chacko<br/>
-                <span style={{ fontStyle: 'italic', fontSize: '18px', color: 'var(--soft)', fontWeight: 400 }}>&amp;</span><br/>
-                Mrs. Rani Chacko
-              </p>
-              <p style={{ fontSize: '15px', color: 'var(--soft)', lineHeight: '1.6', fontWeight: 500 }}>Kappyaruthottathil House<br/>Vadakkencherry, Palakkad</p>
+          <div className="family-grid">
+            <div className="family-card reveal" ref={addToRefs}>
+              <h3 className="family-role">Groom's Parents</h3>
+              <div className="family-names">
+                <span className="parent-name">Mr. K.J Chacko</span>
+                <span className="family-amp">&amp;</span>
+                <span className="parent-name">Mrs. Rani Chacko</span>
+              </div>
+              <p className="family-addr">Kappyaruthottathil House<br/>Vadakkencherry, Palakkad</p>
             </div>
 
-            <div className="family-card">
-              <h3 style={{ fontSize: '16px', color: 'var(--soft)', marginBottom: '12px', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600 }}>Bride's Parents</h3>
-              <p style={{ fontFamily: 'var(--serif)', fontSize: '22px', marginBottom: '6px', color: 'var(--ink)', lineHeight: '1.4', fontWeight: 600 }}>
-                Mr. Sabu George<br/>
-                <span style={{ fontStyle: 'italic', fontSize: '18px', color: 'var(--soft)', fontWeight: 400 }}>&amp;</span><br/>
-                Mrs. Stella Sabu
-              </p>
-              <p style={{ fontSize: '15px', color: 'var(--soft)', lineHeight: '1.6', fontWeight: 500 }}>Pulikkottil House<br/>Olavakkode, Palakkad</p>
+            <div className="family-card reveal" ref={addToRefs}>
+              <h3 className="family-role">Bride's Parents</h3>
+              <div className="family-names">
+                <span className="parent-name">Mr. Sabu George</span>
+                <span className="family-amp">&amp;</span>
+                <span className="parent-name">Mrs. Stella Sabu</span>
+              </div>
+              <p className="family-addr">Pulikkottil House<br/>Olavakkode, Palakkad</p>
             </div>
           </div>
         </section>
         )}
 
-        <section className="reveal" style={{ paddingTop: '0' }} ref={addToRefs}>
+        <section className="reveal section-invite" ref={addToRefs}>
           <div className="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg></div>
-          <p className="lead" style={{ fontSize: '18px', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>We are inviting you to</p>
+          <p className="lead">We are inviting you to</p>
         </section>
 
         {activeEvents.map(key => {
           const ev = EVENTS[key];
           return (
-            <div key={key} className="card reveal" ref={addToRefs}>
-              <h3>{ev.title}</h3>
-              <p style={{ fontSize: '16px', lineHeight: '1.8', color: 'var(--ink)' }}>
-                <strong style={{ fontSize: '18px', color: 'var(--ink)', display: 'block', marginBottom: '4px' }}>{ev.date}</strong>
-                <span style={{ fontSize: '15px', color: 'var(--soft)', fontWeight: 600 }}>{ev.time} at {ev.venue}</span>
+            <div key={key} className="card event-card reveal" ref={addToRefs}>
+              <h3 className="event-title">{ev.title}</h3>
+              <div className="event-datetime-box">
+                <div className="event-date">{ev.date}</div>
+                <div className="event-time">{ev.time}</div>
+              </div>
+              <p className="event-venue">
+                <span className="venue-at">at</span> {ev.venue}
               </p>
-              <p style={{ marginTop: '14px', fontSize: '15px', lineHeight: '1.6', color: 'var(--ink)' }}>{ev.desc}</p>
+              <p className="event-desc">{ev.desc}</p>
               {ev.mapLinks && (
-                <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '18px' }}>
+                <div className="event-maps">
                   {ev.mapLinks.map((link, idx) => (
-                    <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 600, letterSpacing: '0.12em', color: 'var(--btn)', textTransform: 'uppercase', textDecoration: 'none', borderBottom: '2px solid var(--btn)', paddingBottom: '3px' }}>
+                    <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="map-link">
                       <span aria-hidden="true">📍</span> {link.label}
                     </a>
                   ))}
